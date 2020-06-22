@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StartTileColorChanger": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
