@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Xml.Linq;
+using Windows.UI.ViewManagement;
 
 namespace StartTileColorChanger.Models
 {
@@ -14,14 +20,6 @@ namespace StartTileColorChanger.Models
         {
             m_Name = Name;
             m_LnkPath = new LnkFileModel();
-            m_ExePath = ExePath;
-
-            m_LnkPath.PropertyChanged += M_LnkPath_PropertyChanged;
-        }
-        public StartTileModel(StartMenuTileItem tile)
-        {
-            m_Name = tile.name;
-            m_LnkPath.LnkPath = tile.path;
             m_ExePath = ExePath;
 
             m_LnkPath.PropertyChanged += M_LnkPath_PropertyChanged;
@@ -40,6 +38,9 @@ namespace StartTileColorChanger.Models
         private LnkFileModel m_LnkPath;
         private Color m_Color;
         private Image m_Icon;
+        private bool m_Editable = false;
+
+        private Color defaultColor = Color.Transparent;
 
         public string Name
         {
@@ -62,6 +63,7 @@ namespace StartTileColorChanger.Models
             set
             {
                 m_LnkPath.LnkPath = value;
+                Name = GetName(value);
                 NotifyPropertyChanged("LnkPath");
             }
         }
@@ -75,6 +77,8 @@ namespace StartTileColorChanger.Models
             set
             {
                 m_ExePath = value;
+                Editable = GetIsEditable(value);
+                Task.Run(async () => Color = await GetColor(value));
                 NotifyPropertyChanged("ExePath");
             }
         }
@@ -102,6 +106,18 @@ namespace StartTileColorChanger.Models
             {
                 m_Color = value;
                 NotifyPropertyChanged("Color");
+            }
+        }
+        public bool Editable
+        {
+            get
+            {
+                return m_Editable;
+            }
+            set
+            {
+                m_Editable = value;
+                NotifyPropertyChanged("Editable");
             }
         }
 
@@ -142,6 +158,71 @@ namespace StartTileColorChanger.Models
                 Width = Int32.Parse(match.Groups[1].Captures[0].Value);
                 Height = Int32.Parse(match.Groups[2].Captures[0].Value);
             }
+        }
+
+        private string GetName(string lnkPath)
+        {
+            if (lnkPath != "")
+            {
+                return Path.GetFileNameWithoutExtension(LnkPath);
+            } else
+            {
+                return "";
+            }
+        }
+
+        private bool GetIsEditable(string exePath)
+        {
+            if (exePath == null)
+                return false;
+            if (exePath == "")
+                return false;
+            if (exePath.StartsWith(@"C:\Windows\Installer"))
+                return false;
+
+            return true;
+        }
+
+        private async Task<Color> GetColor(string exePath)
+        {
+            string Folder = Path.GetDirectoryName(exePath);
+            string ExeName = Path.GetFileNameWithoutExtension(exePath);
+            string ManifestPath = $"{Folder}\\{ExeName}.visualelementsmanifest.xml";
+
+            try
+            {
+                CancellationToken Token = new CancellationToken();
+                XDocument xml = await XDocument.LoadAsync(File.OpenRead(ManifestPath), LoadOptions.None, Token);
+
+                var query = from item in xml.Root.Descendants("VisualElements")
+                            select item;
+
+                string ColorString =  query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
+                if (ColorString != null || ColorString == "")
+                {
+                    ColorConverter Converter = new ColorConverter();
+                    object RetColor = Converter.ConvertFromString(ColorString);
+                    return RetColor != null ? (Color) RetColor : getDefaultColor();
+                } else
+                {
+                    return getDefaultColor();
+                }
+            } catch (FileNotFoundException e)
+            {
+                return getDefaultColor();
+            }
+        }
+
+        private Color getDefaultColor()
+        {
+            if (defaultColor == Color.Transparent)
+            {
+                UISettings uiSettings = new UISettings();
+                var DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
+                defaultColor = Color.FromArgb(DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B, DefaultColorUI.A);
+            }
+
+            return defaultColor;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

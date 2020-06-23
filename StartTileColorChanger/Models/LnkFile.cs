@@ -46,6 +46,7 @@ namespace StartTileColorChanger.Models
                 NotifyPropertyChanged("ExePath");
             }
         }
+
         public string Name
         {
             get
@@ -68,16 +69,6 @@ namespace StartTileColorChanger.Models
                 System.Diagnostics.Debug.WriteLine($"Full path is {FullPath}");
                 Shortcut lnk = Shortcut.ReadFromFile(FullPath);
                 ExePath = lnk.LinkTargetIDList?.Path;
-                //Name = lnk.;
-
-                //if (lnk.ExtraData.ConsoleDataBlock != null)
-
-                lnk.ExtraData.ConsoleDataBlock = new ShellLink.Structures.ConsoleDataBlock();
-
-                lnk.ExtraData.ConsoleDataBlock.FillAttributes = FillAttributes.BACKGROUND_RED;
-                lnk.WriteToFile(@"C:\Users\Widget\Code\Visual Studio Projects\StartTileColorChanger\PowerShell.lnk");
-                
-
             });
         }
 

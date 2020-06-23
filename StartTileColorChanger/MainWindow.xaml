@@ -18,6 +18,7 @@
                     <GridViewColumn Width="50" Header="Row" DisplayMemberBinding="{Binding Path=Row}" />
                     <GridViewColumn Width="50" Header="Column" DisplayMemberBinding="{Binding Path=Column}" />
                     <GridViewColumn Width="100" Header="Color" DisplayMemberBinding="{Binding Path=Color}" />
+                    <GridViewColumn Width="50" Header="Editable" DisplayMemberBinding="{Binding Path=Editable}" />
                 </GridView>
             </ListView.View>
         </ListView>
