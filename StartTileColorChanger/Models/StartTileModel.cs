@@ -12,12 +12,9 @@ using System.Windows.Controls;
 using System.Xml.Linq;
 using Windows.UI.ViewManagement;
 
-namespace StartTileColorChanger.Models
-{
-    class StartTileModel : INotifyPropertyChanged
-    {
-        public StartTileModel(string Name = "", string LnkPath = "", string ExePath = "")
-        {
+namespace StartTileColorChanger.Models {
+    class StartTileModel : INotifyPropertyChanged {
+        public StartTileModel(string Name = "", string LnkPath = "", string ExePath = "") {
             m_Name = Name;
             m_LnkPath = new LnkFileModel();
             m_ExePath = ExePath;
@@ -25,8 +22,7 @@ namespace StartTileColorChanger.Models
             m_LnkPath.PropertyChanged += M_LnkPath_PropertyChanged;
         }
 
-        private void M_LnkPath_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
+        private void M_LnkPath_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if (e.PropertyName == "ExePath")
                 ExePath = m_LnkPath.ExePath;
             if (e.PropertyName == "Name")
@@ -42,40 +38,31 @@ namespace StartTileColorChanger.Models
 
         private Color defaultColor = Color.Transparent;
 
-        public string Name
-        {
-            get
-            {
+        public string Name {
+            get {
                 return m_Name;
             }
-            set
-            {
+            set {
                 m_Name = value;
                 NotifyPropertyChanged("Name");
             }
         }
-        public string LnkPath
-        {
-            get
-            {
+        public string LnkPath {
+            get {
                 return m_LnkPath.LnkPath;
             }
-            set
-            {
+            set {
                 m_LnkPath.LnkPath = value;
                 Name = GetName(value);
                 NotifyPropertyChanged("LnkPath");
             }
         }
 
-        public string ExePath
-        {
-            get
-            {
+        public string ExePath {
+            get {
                 return m_ExePath;
             }
-            set
-            {
+            set {
                 m_ExePath = value;
                 Editable = GetIsEditable(value);
                 Task.Run(async () => Color = await GetColor(value));
@@ -83,76 +70,60 @@ namespace StartTileColorChanger.Models
             }
         }
 
-        public Image Icon
-        {
-            get
-            {
+        public Image Icon {
+            get {
                 return m_Icon;
             }
-            set
-            {
+            set {
                 m_Icon = value;
                 NotifyPropertyChanged("Icon");
             }
         }
 
-        public Color Color
-        {
-            get
-            {
+        public Color Color {
+            get {
                 return m_Color;
             }
-            set
-            {
+            set {
                 m_Color = value;
                 NotifyPropertyChanged("Color");
             }
         }
-        public bool Editable
-        {
-            get
-            {
+        public bool Editable {
+            get {
                 return m_Editable;
             }
-            set
-            {
+            set {
                 m_Editable = value;
                 NotifyPropertyChanged("Editable");
             }
         }
 
-        public int Row
-        {
+        public int Row {
             get;
             set;
         }
 
-        public int Column
-        {
+        public int Column {
             get;
             set;
         }
 
-        public int Width
-        {
+        public int Width {
             get;
             set;
         }
 
-        public int Height
-        {
+        public int Height {
             get;
             set;
         }
 
-        public string Size
-        {
-            get
-            {
+        public string Size {
+            get {
                 return Width + "x" + Height;
             }
-            set
-            {
+            set {
                 Regex regex = new Regex(@"(\d+)x(\d+)");
                 Match match = regex.Match(value);
                 Width = Int32.Parse(match.Groups[1].Captures[0].Value);
@@ -160,19 +131,15 @@ namespace StartTileColorChanger.Models
             }
         }
 
-        private string GetName(string lnkPath)
-        {
-            if (lnkPath != "")
-            {
+        private string GetName(string lnkPath) {
+            if (lnkPath != "") {
                 return Path.GetFileNameWithoutExtension(LnkPath);
-            } else
-            {
+            } else {
                 return "";
             }
         }
 
-        private bool GetIsEditable(string exePath)
-        {
+        private bool GetIsEditable(string exePath) {
             if (exePath == null)
                 return false;
             if (exePath == "")
@@ -183,40 +150,33 @@ namespace StartTileColorChanger.Models
             return true;
         }
 
-        private async Task<Color> GetColor(string exePath)
-        {
+        private async Task<Color> GetColor(string exePath) {
             string Folder = Path.GetDirectoryName(exePath);
             string ExeName = Path.GetFileNameWithoutExtension(exePath);
             string ManifestPath = $"{Folder}\\{ExeName}.visualelementsmanifest.xml";
 
-            try
-            {
+            try {
                 CancellationToken Token = new CancellationToken();
                 XDocument xml = await XDocument.LoadAsync(File.OpenRead(ManifestPath), LoadOptions.None, Token);
 
                 var query = from item in xml.Root.Descendants("VisualElements")
                             select item;
 
-                string ColorString =  query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
-                if (ColorString != null || ColorString == "")
-                {
+                string ColorString = query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
+                if (ColorString != null || ColorString == "") {
                     ColorConverter Converter = new ColorConverter();
                     object RetColor = Converter.ConvertFromString(ColorString);
-                    return RetColor != null ? (Color) RetColor : getDefaultColor();
-                } else
-                {
+                    return RetColor != null ? (Color)RetColor : getDefaultColor();
+                } else {
                     return getDefaultColor();
                 }
-            } catch (FileNotFoundException e)
-            {
+            } catch (FileNotFoundException e) {
                 return getDefaultColor();
             }
         }
 
-        private Color getDefaultColor()
-        {
-            if (defaultColor == Color.Transparent)
-            {
+        private Color getDefaultColor() {
+            if (defaultColor == Color.Transparent) {
                 UISettings uiSettings = new UISettings();
                 var DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
                 defaultColor = Color.FromArgb(DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B, DefaultColorUI.A);
@@ -227,10 +187,8 @@ namespace StartTileColorChanger.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string Obj)
-        {
-            if (PropertyChanged != null)
-            {
+        private void NotifyPropertyChanged(string Obj) {
+            if (PropertyChanged != null) {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(Obj));
             }
         }

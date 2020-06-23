@@ -10,19 +10,14 @@ using System.Linq;
 using StartTileColorChanger.Models;
 using Microsoft.VisualBasic.CompilerServices;
 
-namespace StartTileColorChanger.Actions
-{
-    class ExportLayout
-    {
-        public ExportLayout()
-        {}
+namespace StartTileColorChanger.Actions {
+    class ExportLayout {
+        public ExportLayout() { }
 
-        public async Task<string> Export()
-        {
+        public async Task<string> Export() {
             string path = Path.GetTempFileName();
 
-            var startInfo = new ProcessStartInfo()
-            {
+            var startInfo = new ProcessStartInfo() {
                 FileName = "powershell.exe",
                 Arguments = $"-ExecutionPolicy unrestricted -Command \"Export-StartLayout \\\"{path}\\\"\"",
                 UseShellExecute = false,
@@ -30,17 +25,16 @@ namespace StartTileColorChanger.Actions
                 CreateNoWindow = true,
             };
             Process process = Process.Start(startInfo);
-            process.WaitForExit();
+            await Task.Run(() => process.WaitForExit());
 
             return path;
         }
 
-        public async Task<List<StartTileModel>> ParseExportedLayout(string path)
-        {
+        public async Task<List<StartTileModel>> ParseExportedLayout(string path) {
             XDocument xml = await Task.Run(() => XDocument.Load(path));
             XNamespace start = "http://schemas.microsoft.com/Start/2014/StartLayout";
-            var query = from item in xml.Root.Descendants(start+"DesktopApplicationTile") select
-                        new StartTileModel() {
+            var query = from item in xml.Root.Descendants(start + "DesktopApplicationTile")
+                        select new StartTileModel() {
                             Row = int.Parse(item.Attribute("Row").Value),
                             Column = int.Parse(item.Attribute("Column").Value),
                             Name = "",
