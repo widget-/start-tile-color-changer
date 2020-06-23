@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Linq;
 using StartTileColorChanger.Models;
 using Microsoft.VisualBasic.CompilerServices;
+using System.ComponentModel;
 
 namespace StartTileColorChanger.Actions {
     class ExportLayout {
@@ -30,19 +31,28 @@ namespace StartTileColorChanger.Actions {
             return path;
         }
 
-        public async Task<List<StartTileModel>> ParseExportedLayout(string path) {
+        public async Task<List<StartTileGroupModel>> ParseExportedLayout(string path) {
             XDocument xml = await Task.Run(() => XDocument.Load(path));
             XNamespace start = "http://schemas.microsoft.com/Start/2014/StartLayout";
-            var query = from item in xml.Root.Descendants(start + "DesktopApplicationTile")
-                        select new StartTileModel() {
-                            Row = int.Parse(item.Attribute("Row").Value),
-                            Column = int.Parse(item.Attribute("Column").Value),
-                            Name = "",
-                            LnkPath = item.Attribute("DesktopApplicationLinkPath")?.Value,
-                            Size = item.Attribute("Size").Value,
-                        };
+            var XmlGroups = xml.Root.Descendants(start + "Group");
+            List<StartTileGroupModel> Groups = new List<StartTileGroupModel>();
 
-            return new List<StartTileModel>(query);
+            foreach (var Group in XmlGroups) {
+                var Tiles = from item in Group.Descendants(start + "DesktopApplicationTile")
+                            select new StartTileModel() {
+                                Row = int.Parse(item.Attribute("Row").Value),
+                                Column = int.Parse(item.Attribute("Column").Value),
+                                Name = "",
+                                LnkPath = item.Attribute("DesktopApplicationLinkPath")?.Value,
+                                Size = item.Attribute("Size").Value,
+                            };
+                Groups.Add(new StartTileGroupModel {
+                    Name = Group.Attribute("Name")?.Value,
+                    Tiles = new BindingList<StartTileModel>(new List<StartTileModel>(Tiles))
+                });
+            }
+
+            return Groups;
         }
     }
 }

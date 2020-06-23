@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Xml.Linq;
 using Windows.UI.ViewManagement;
 
@@ -36,7 +36,7 @@ namespace StartTileColorChanger.Models {
         private Image m_Icon;
         private bool m_Editable = false;
 
-        private Color defaultColor = Color.Transparent;
+        private Color defaultColor = Color.FromArgb(0,0,0,0);
 
         public string Name {
             get {
@@ -131,6 +131,22 @@ namespace StartTileColorChanger.Models {
             }
         }
 
+        public SolidColorBrush BackgroundColor {
+            get {
+                return new SolidColorBrush(Color);
+            }
+        }
+        public int DisplayWidth {
+            get {
+                return Width * 50;
+            }
+        }
+        public int DisplayHeight {
+            get {
+                return Height * 50;
+            }
+        }
+
         private string GetName(string lnkPath) {
             if (lnkPath != "") {
                 return Path.GetFileNameWithoutExtension(LnkPath);
@@ -164,22 +180,22 @@ namespace StartTileColorChanger.Models {
 
                 string ColorString = query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
                 if (ColorString != null || ColorString == "") {
-                    ColorConverter Converter = new ColorConverter();
-                    object RetColor = Converter.ConvertFromString(ColorString);
-                    return RetColor != null ? (Color)RetColor : getDefaultColor();
+                    //ColorConverter Converter = new ColorConverter();
+                    Color RetColor = (Color) ColorConverter.ConvertFromString(ColorString);
+                    return RetColor != Color.FromArgb(0,0,0,0) ? (Color)RetColor : getDefaultColor();
                 } else {
                     return getDefaultColor();
                 }
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException) {
                 return getDefaultColor();
             }
         }
 
         private Color getDefaultColor() {
-            if (defaultColor == Color.Transparent) {
+            if (defaultColor.Equals(Color.FromArgb(0,0,0,0))) {
                 UISettings uiSettings = new UISettings();
-                var DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
-                defaultColor = Color.FromArgb(DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B, DefaultColorUI.A);
+                Windows.UI.Color DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
+                defaultColor = Color.FromArgb(DefaultColorUI.A, DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B);
             }
 
             return defaultColor;

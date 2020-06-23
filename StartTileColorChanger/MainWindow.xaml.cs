@@ -27,15 +27,6 @@ namespace StartTileColorChanger {
         public MainWindow() {
             InitializeComponent();
             this.DataContext = new Tiles();
-
-            //LoadLayout();
         }
-
-
-        //private async void LoadLayout()
-        //{
-
-        //}
     }
-
 }

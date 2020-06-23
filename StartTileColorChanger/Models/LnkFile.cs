@@ -23,7 +23,7 @@ namespace StartTileColorChanger.Models {
             }
             set {
                 m_lnkPath = value;
-                loadExe(value);
+                loadExePath(value);
             }
         }
 
@@ -49,12 +49,14 @@ namespace StartTileColorChanger.Models {
             }
         }
 
-        private async void loadExe(string path) {
+        private async void loadExePath(string path) {
             await Task.Run(() => {
                 string FullPath = Environment.ExpandEnvironmentVariables(path);
                 System.Diagnostics.Debug.WriteLine($"Full path is {FullPath}");
-                Shortcut lnk = Shortcut.ReadFromFile(FullPath);
-                ExePath = lnk.LinkTargetIDList?.Path;
+                try {
+                    Shortcut lnk = Shortcut.ReadFromFile(FullPath);
+                    ExePath = lnk.LinkTargetIDList?.Path;
+                } catch (FileNotFoundException) { }
             });
         }
 

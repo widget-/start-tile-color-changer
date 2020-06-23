@@ -9,15 +9,15 @@ using System.Text;
 
 namespace StartTileColorChanger.Views {
     class Tiles {
-        private BindingList<StartTileModel> m_Tiles;
-        public BindingList<StartTileModel> Items {
-            get { return m_Tiles; }
-            set { m_Tiles = value; }
+        private BindingList<StartTileGroupModel> m_Groups;
+        public BindingList<StartTileGroupModel> Groups {
+            get { return m_Groups; }
+            set { m_Groups = value; }
         }
 
         public Tiles() {
             Initialize();
-            Items = new BindingList<StartTileModel>();
+            Groups = new BindingList<StartTileGroupModel>();
         }
 
         public async void Initialize() {
@@ -26,15 +26,15 @@ namespace StartTileColorChanger.Views {
             System.Diagnostics.Debug.WriteLine("Layout exporter created");
             string path = await layout.Export();
             System.Diagnostics.Debug.WriteLine($"Path is {path}");
-            List<StartTileModel> tiles = await layout.ParseExportedLayout(path);
+            List<StartTileGroupModel> Groups = await layout.ParseExportedLayout(path);
 
             System.Diagnostics.Debug.WriteLine("Done loading tiles");
 
-            Items.Clear();
+            this.Groups.Clear();
             System.Diagnostics.Debug.WriteLine("Done clearing tiles");
-            foreach (StartTileModel tile in tiles) {
-                System.Diagnostics.Debug.WriteLine($"Adding tile {tile.Name}");
-                Items.Add(tile);
+            foreach (StartTileGroupModel Group in Groups) {
+                System.Diagnostics.Debug.WriteLine($"Adding group {Group.Name}");
+                this.Groups.Add(Group);
             }
         }
     }
