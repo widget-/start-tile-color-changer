@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Widget\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Widget\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_StartTileColorChanger.614760878.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Widget\Code\Visual Studio Projects\StartTileColorChanger" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="StartTileColorChanger" t="IncludeRecursive">
+        <e p="Actions" t="Include">
+          <e p="ExportLayout.cs" t="Include" />
+        </e>
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="LnkFile.cs" t="Include" />
+          <e p="StartTileGroupModel.cs" t="Include" />
+          <e p="StartTileModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="App.g.cs" t="Include" />
+              <e p="StartTileColorChanger.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="StartTileColorChanger.csproj" t="IncludeRecursive" />
+        <e p="Views" t="Include">
+          <e p="Tiles.cs" t="Include" />
+        </e>
+      </e>
+      <e p="StartTileColorChanger.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
