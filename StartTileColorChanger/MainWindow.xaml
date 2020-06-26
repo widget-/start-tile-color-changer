@@ -6,72 +6,91 @@
         xmlns:locals="clr-namespace:StartTileColorChanger"
         xmlns:models="clr-namespace:StartTileColorChanger.Models"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#FF292929">
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Path=Groups, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
+                      d:DataContext="{d:DesignInstance }">
 
-    <ListView ItemsSource="{Binding Path=Groups, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
-              d:DataContext="{d:DesignInstance }">
-        <ListView.ItemTemplate>
-            <DataTemplate DataType="{x:Type models:StartTileGroupModel}">
-                <ItemsControl ItemsSource="{Binding Path=Tiles, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
-                              d:DataContext="{d:DesignInstance }">
-                    <ItemsControl.Resources>
-                            <Style TargetType="ContentPresenter">
-                                <Setter Property="Grid.Row" Value="{Binding Row}" />
-                                <Setter Property="Grid.Column" Value="{Binding Column}" />
-                                <Setter Property="Grid.RowSpan" Value="{Binding Width}" />
-                                <Setter Property="Grid.ColumnSpan" Value="{Binding Height}" />
-                            </Style>
-                    </ItemsControl.Resources>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                    <RowDefinition Height="75" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                    <ColumnDefinition Width="75" />
-                                </Grid.ColumnDefinitions>
-                            </Grid>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:StartTileGroupModel}">
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="models:StartTileModel">
-                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="2" Background="{Binding Path=BackgroundColorBrush}" Padding="15">
-                                <StackPanel VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow" FontSize="22" Foreground="{Binding Path=ForegroundColor}" />
-                                    <!--<TextBlock Width="200" Text="{Binding Path=LnkPath}" />
+                    <StackPanel>
+                        <GroupBox BorderBrush="White" BorderThickness="1" Padding="2" Margin="2"
+                                  Header="{Binding Name}" FontSize="18" Foreground="White">
+                            <ItemsControl
+                                ItemsSource="{Binding Path=Tiles, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
+                                d:DataContext="{d:DesignInstance }">
+                                <ItemsControl.Resources>
+                                    <Style TargetType="ContentPresenter" d:DataContext="{d:DesignInstance d:Type=models:StartTileModel }">
+                                        <Setter Property="Grid.Row" Value="{Binding Row}" />
+                                        <Setter Property="Grid.Column" Value="{Binding Column}" />
+                                        <Setter Property="Grid.RowSpan" Value="{Binding Width}" />
+                                        <Setter Property="Grid.ColumnSpan" Value="{Binding Height}" />
+                                    </Style>
+                                </ItemsControl.Resources>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                                <RowDefinition Height="75" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                                <ColumnDefinition Width="75" />
+                                            </Grid.ColumnDefinitions>
+                                        </Grid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="models:StartTileModel">
+                                        <Border BorderBrush="White" BorderThickness="0" CornerRadius="5"
+                                                Background="{Binding Path=BackgroundColorBrush}" Padding="5" Margin="2">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow"
+                                                           FontSize="22"
+                                                           Foreground="{Binding Path=ForegroundColor}" />
+                                                <!--<TextBlock Width="200" Text="{Binding Path=LnkPath}" />
                         <TextBlock Width="200" Text="{Binding Path=ExePath}" />
                         <TextBlock Width="50" Text="{Binding Path=Width}" />
                         <TextBlock Width="50" Text="{Binding Path=Height}" />
                         <TextBlock Width="50" Text="{Binding Path=Row}" />
                         <TextBlock Width="50" Text="{Binding Path=Column}" />-->
-                                    <TextBlock Text="{Binding Path=BackgroundColor}" FontSize="14" Foreground="White" />
-                                    <TextBlock Text="{Binding Path=EditableStr}" FontSize="14" Foreground="White" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+                                                <TextBlock Text="{Binding Path=BackgroundColor}" FontSize="14"
+                                                           Foreground="White" />
+                                                <TextBlock Text="{Binding Path=EditableStr}" FontSize="14"
+                                                           Foreground="White" />
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </GroupBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </Window>
