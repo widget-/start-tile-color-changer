@@ -3,14 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:locals="clr-namespace:StartTileColorChanger"
         xmlns:models="clr-namespace:StartTileColorChanger.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FF292929">
     <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Path=Groups, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
                       d:DataContext="{d:DesignInstance }">
-
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" />
@@ -18,7 +16,6 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:StartTileGroupModel}">
-
                     <StackPanel>
                         <GroupBox BorderBrush="White" BorderThickness="1" Padding="2" Margin="2"
                                   Header="{Binding Name}" FontSize="18" Foreground="White">
@@ -26,7 +23,8 @@
                                 ItemsSource="{Binding Path=Tiles, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
                                 d:DataContext="{d:DesignInstance }">
                                 <ItemsControl.Resources>
-                                    <Style TargetType="ContentPresenter" d:DataContext="{d:DesignInstance d:Type=models:StartTileModel }">
+                                    <Style TargetType="ContentPresenter"
+                                           d:DataContext="{d:DesignInstance d:Type=models:StartTileModel }">
                                         <Setter Property="Grid.Row" Value="{Binding Row}" />
                                         <Setter Property="Grid.Column" Value="{Binding Column}" />
                                         <Setter Property="Grid.RowSpan" Value="{Binding Width}" />
@@ -72,12 +70,6 @@
                                                 <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow"
                                                            FontSize="22"
                                                            Foreground="{Binding Path=ForegroundColor}" />
-                                                <!--<TextBlock Width="200" Text="{Binding Path=LnkPath}" />
-                        <TextBlock Width="200" Text="{Binding Path=ExePath}" />
-                        <TextBlock Width="50" Text="{Binding Path=Width}" />
-                        <TextBlock Width="50" Text="{Binding Path=Height}" />
-                        <TextBlock Width="50" Text="{Binding Path=Row}" />
-                        <TextBlock Width="50" Text="{Binding Path=Column}" />-->
                                                 <TextBlock Text="{Binding Path=BackgroundColor}" FontSize="14"
                                                            Foreground="White" />
                                                 <TextBlock Text="{Binding Path=EditableStr}" FontSize="14"

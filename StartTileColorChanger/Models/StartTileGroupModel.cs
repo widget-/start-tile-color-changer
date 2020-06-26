@@ -1,37 +1,27 @@
-﻿using StartTileColorChanger.Views;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace StartTileColorChanger.Models {
-    class StartTileGroupModel {
-
-        private BindingList<StartTileModel> m_Tiles = new BindingList<StartTileModel>();
+    internal class StartTileGroupModel {
+        private readonly BindingList<StartTileModel> _mTiles = new BindingList<StartTileModel>();
 
         public BindingList<StartTileModel> Tiles {
-            get {
-                return m_Tiles;
-            }
+            get => _mTiles;
             set {
                 Tiles.Clear();
-                foreach (StartTileModel Tile in value) {
-                    Tiles.Add(Tile);
+                foreach (StartTileModel tile in value) {
+                    Tiles.Add(tile);
                 }
             }
         }
 
-        public string Name {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public StartTileGroupModel() {
-        }
+        public StartTileGroupModel() { }
 
-        public StartTileGroupModel(List<StartTileModel> StartTiles) {
+        public StartTileGroupModel(IList<StartTileModel> startTiles) {
             Tiles.ListChanged += NotifyListChanged;
-            Tiles = new BindingList<StartTileModel>(StartTiles);
+            Tiles = new BindingList<StartTileModel>(startTiles);
         }
 
         public void NotifyListChanged(object sender, ListChangedEventArgs e) {
@@ -40,10 +30,8 @@ namespace StartTileColorChanger.Models {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string Obj) {
-            if (PropertyChanged != null) {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(Obj));
-            }
+        private void NotifyPropertyChanged(string obj) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(obj));
         }
     }
 }

@@ -11,58 +11,53 @@ using System.Xml.Linq;
 using Windows.UI.ViewManagement;
 
 namespace StartTileColorChanger.Models {
-    class StartTileModel : INotifyPropertyChanged {
-        public StartTileModel(string Name = "", string LnkPath = "", string ExePath = "") {
-            m_Name = Name;
-            m_LnkPath = new LnkFileModel();
-            m_ExePath = ExePath;
+    internal class StartTileModel : INotifyPropertyChanged {
+        public StartTileModel(string name = "", string exePath = "") {
+            _mName = name;
+            _mLnkPath = new LnkFileModel();
+            _mExePath = exePath;
 
-            m_LnkPath.PropertyChanged += M_LnkPath_PropertyChanged;
+            _mLnkPath.PropertyChanged += M_LnkPath_PropertyChanged;
         }
 
         private void M_LnkPath_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if (e.PropertyName == "ExePath")
-                ExePath = m_LnkPath.ExePath;
+                ExePath = _mLnkPath.ExePath;
             if (e.PropertyName == "Name")
-                Name = m_LnkPath.Name;
+                Name = _mLnkPath.Name;
         }
 
-        private string m_Name;
-        private string m_ExePath;
-        private LnkFileModel m_LnkPath;
-        private Color m_Color;
-        private Image m_Icon;
-        private bool m_Editable = false;
+        private string _mName;
+        private string _mExePath;
+        private LnkFileModel _mLnkPath;
+        private Color _mColor;
+        private Image _mIcon;
+        private bool _mEditable;
 
-        private Color defaultColor = Color.FromArgb(0, 0, 0, 0);
+        private Color _defaultColor = Color.FromArgb(0, 0, 0, 0);
         private const double DisabledTileContrast = 0.6;
 
         public string Name {
-            get {
-                return m_Name;
-            }
+            get => _mName;
             set {
-                m_Name = value;
+                _mName = value;
                 NotifyPropertyChanged("Name");
             }
         }
+
         public string LnkPath {
-            get {
-                return m_LnkPath.LnkPath;
-            }
+            get => _mLnkPath.LnkPath;
             set {
-                m_LnkPath.LnkPath = value;
+                _mLnkPath.LnkPath = value;
                 Name = GetName(value);
                 NotifyPropertyChanged("LnkPath");
             }
         }
 
         public string ExePath {
-            get {
-                return m_ExePath;
-            }
+            get => _mExePath;
             set {
-                m_ExePath = value;
+                _mExePath = value;
                 Editable = GetIsEditable(value);
                 Task.Run(async () => BackgroundColor = await GetColor(value));
                 NotifyPropertyChanged("ExePath");
@@ -70,111 +65,70 @@ namespace StartTileColorChanger.Models {
         }
 
         public Image Icon {
-            get {
-                return m_Icon;
-            }
+            get => _mIcon;
             set {
-                m_Icon = value;
+                _mIcon = value;
                 NotifyPropertyChanged("Icon");
             }
         }
 
         public Color BackgroundColor {
-            get {
-                return m_Color;
-            }
+            get => _mColor;
             set {
-                m_Color = value;
+                _mColor = value;
                 NotifyPropertyChanged("Color");
             }
         }
+
         public Brush ForegroundColor {
             get {
-                Color FgColor;
-                if (Editable)
-                    FgColor = Color.FromArgb(255, 255, 255, 255);
-                else
-                    FgColor = Color.FromArgb(255, 192, 192, 192);
-                return new SolidColorBrush(FgColor);
+                Color fgColor = Editable ? Color.FromArgb(255, 255, 255, 255) : Color.FromArgb(255, 192, 192, 192);
+                return new SolidColorBrush(fgColor);
             }
         }
 
         public bool Editable {
-            get {
-                return m_Editable;
-            }
+            get => _mEditable;
             set {
-                m_Editable = value;
+                _mEditable = value;
                 NotifyPropertyChanged("Editable");
             }
         }
-        public string EditableStr {
-            get {
-                return m_Editable ? "Editable" : "Not editable";
-            }
-        }
 
-        public int Row {
-            get;
-            set;
-        }
+        public string EditableStr => _mEditable ? "Editable" : "Not editable";
 
-        public int Column {
-            get;
-            set;
-        }
+        public int Row { get; set; }
 
-        public int Width {
-            get;
-            set;
-        }
+        public int Column { get; set; }
 
-        public int Height {
-            get;
-            set;
-        }
+        public int Width { get; set; }
+
+        public int Height { get; set; }
 
         public string Size {
-            get {
-                return Width + "x" + Height;
-            }
+            get => Width + "x" + Height;
             set {
-                Regex SizeStringRegex = new Regex(@"(\d+)x(\d+)");
-                Match RegexMatches = SizeStringRegex.Match(value);
-                Width = Int32.Parse(RegexMatches.Groups[1].Captures[0].Value);
-                Height = Int32.Parse(RegexMatches.Groups[2].Captures[0].Value);
+                Regex sizeStringRegex = new Regex(@"(\d+)x(\d+)");
+                Match regexMatches = sizeStringRegex.Match(value);
+                Width = int.Parse(regexMatches.Groups[1].Captures[0].Value);
+                Height = int.Parse(regexMatches.Groups[2].Captures[0].Value);
             }
         }
 
-        public SolidColorBrush BackgroundColorBrush {
-            get {
-                if (!Editable) {
-                    return new SolidColorBrush(AdjustContrast(BackgroundColor, DisabledTileContrast));
-                } else {
-                    return new SolidColorBrush(BackgroundColor);
-                }
-            }
-        }
-        public int DisplayWidth {
-            get {
-                return Width * 50;
-            }
-        }
-        public int DisplayHeight {
-            get {
-                return Height * 50;
-            }
-        }
+        public SolidColorBrush BackgroundColorBrush =>
+            !Editable
+                ? new SolidColorBrush(AdjustContrast(BackgroundColor, DisabledTileContrast))
+                : new SolidColorBrush(BackgroundColor);
 
-        private string GetName(string lnkPath) {
-            if (lnkPath != "") {
-                return Path.GetFileNameWithoutExtension(LnkPath);
-            } else {
+        private static string GetName(string lnkPath) {
+            try {
+                return Path.GetFileNameWithoutExtension(lnkPath);
+            } catch (ArgumentException) {
                 return "";
             }
         }
 
-        private bool GetIsEditable(string exePath) {
+        private static bool GetIsEditable(string exePath) {
             if (exePath == null)
                 return false;
             if (exePath == "")
@@ -185,54 +139,52 @@ namespace StartTileColorChanger.Models {
             return true;
         }
 
-        private Color AdjustContrast(Color Color, double Contrast) {
-            Color RetColor = Color.FromArgb(Color.A, Color.R, Color.G, Color.B);
-            RetColor.R = (byte)(Color.R * Contrast + 255 * Contrast / 2);
-            RetColor.G = (byte)(Color.G * Contrast + 255 * Contrast / 2);
-            RetColor.B = (byte)(Color.B * Contrast + 255 * Contrast / 2);
-            return RetColor;
+        private static Color AdjustContrast(Color color, double contrast) {
+            Color retColor = Color.FromArgb(color.A, color.R, color.G, color.B);
+            retColor.R = (byte) (color.R * contrast + 255 * contrast / 2);
+            retColor.G = (byte) (color.G * contrast + 255 * contrast / 2);
+            retColor.B = (byte) (color.B * contrast + 255 * contrast / 2);
+            return retColor;
         }
 
         private async Task<Color> GetColor(string exePath) {
-            string Folder = Path.GetDirectoryName(exePath);
-            string ExeName = Path.GetFileNameWithoutExtension(exePath);
-            string ManifestPath = $"{Folder}\\{ExeName}.visualelementsmanifest.xml";
+            string folder = Path.GetDirectoryName(exePath);
+            string exeName = Path.GetFileNameWithoutExtension(exePath);
+            string manifestPath = $"{folder}\\{exeName}.visualelementsmanifest.xml";
 
             try {
-                CancellationToken Token = new CancellationToken();
-                XDocument xml = await XDocument.LoadAsync(File.OpenRead(ManifestPath), LoadOptions.None, Token);
+                CancellationToken token = new CancellationToken();
+                XDocument xml = await XDocument.LoadAsync(File.OpenRead(manifestPath), LoadOptions.None, token);
 
-                var query = from item in xml.Root.Descendants("VisualElements")
-                            select item;
+                var query = from item in xml.Root?.Descendants("VisualElements")
+                    select item;
 
-                string ColorString = query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
-                if (ColorString != null || ColorString == "") {
-                    //ColorConverter Converter = new ColorConverter();
-                    Color RetColor = (Color)ColorConverter.ConvertFromString(ColorString);
-                    return RetColor != Color.FromArgb(0, 0, 0, 0) ? (Color)RetColor : getDefaultColor();
-                } else {
-                    return getDefaultColor();
+                string colorString = query.First()?.Attribute("BackgroundColor")?.Value;
+                try {
+                    return (Color) ColorConverter.ConvertFromString(colorString);
+                } catch (Exception e) when (e is NullReferenceException || e is FormatException) {
+                    return GetDefaultColor();
                 }
             } catch (FileNotFoundException e) {
-                return getDefaultColor();
+                return GetDefaultColor();
             }
         }
 
-        private Color getDefaultColor() {
-            if (defaultColor.Equals(Color.FromArgb(0, 0, 0, 0))) {
+        private Color GetDefaultColor() {
+            if (_defaultColor.Equals(Color.FromArgb(0, 0, 0, 0))) {
                 UISettings uiSettings = new UISettings();
-                Windows.UI.Color DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
-                defaultColor = Color.FromArgb(DefaultColorUI.A, DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B);
+                Windows.UI.Color defaultColorUi = uiSettings.GetColorValue(UIColorType.Accent);
+                _defaultColor = Color.FromArgb(defaultColorUi.A, defaultColorUi.R, defaultColorUi.G, defaultColorUi.B);
             }
 
-            return defaultColor;
+            return _defaultColor;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged(string Obj) {
+        private void NotifyPropertyChanged(string obj) {
             if (PropertyChanged != null) {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(Obj));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(obj));
             }
         }
     }

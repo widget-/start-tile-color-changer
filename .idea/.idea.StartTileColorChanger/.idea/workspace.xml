@@ -23,9 +23,16 @@
   <component name="ChangeListManager">
     <list default="true" id="a627423b-b3ac-400a-8244-321504683a45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.StartTileColorChanger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StartTileColorChanger/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.StartTileColorChanger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.StartTileColorChanger/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/Actions/ExportLayout.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/Actions/ExportLayout.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/App.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/App.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/App.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/Models/LnkFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/Models/LnkFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileGroupModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileGroupModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/StartTileColorChanger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/StartTileColorChanger.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StartTileColorChanger/Views/Tiles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/StartTileColorChanger/Views/Tiles.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,21 +43,26 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/StartTileColorChanger/App.xaml.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StartTileColorChanger/Models/StartTileGroupModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/StartTileColorChanger/Models/StartTileModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///MainWindow.xaml" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/StartTileColorChanger/Models/LnkFile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/StartTileColorChanger/Actions/ExportLayout.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Tiles.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///StartTileModel.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///ExportLayout.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///LnkFile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StartTileColorChanger/App.xaml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/StartTileColorChanger/Views/Tiles.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml.cs" />
+        <option value="$PROJECT_DIR$/StartTileColorChanger/Models/LnkFile.cs" />
+        <option value="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileGroupModel.cs" />
         <option value="$PROJECT_DIR$/StartTileColorChanger/Models/StartTileModel.cs" />
+        <option value="$PROJECT_DIR$/StartTileColorChanger/Actions/ExportLayout.cs" />
+        <option value="$PROJECT_DIR$/StartTileColorChanger/Views/Tiles.cs" />
+        <option value="$PROJECT_DIR$/StartTileColorChanger/App.xaml" />
         <option value="$PROJECT_DIR$/StartTileColorChanger/MainWindow.xaml" />
       </list>
     </option>
@@ -66,6 +78,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RunManager">
     <configuration name="StartTileColorChanger" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
@@ -91,7 +104,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1593125123924</updated>
-      <workItem from="1593125134204" duration="2238000" />
+      <workItem from="1593125134204" duration="6791000" />
+      <workItem from="1593134974441" duration="2768000" />
+      <workItem from="1593137763165" duration="1877000" />
     </task>
     <servers />
   </component>
@@ -117,6 +132,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
@@ -126,89 +142,101 @@
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
     <state x="92" y="122" width="3656" height="1946" key="DiffContextDialog/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127277031" />
-    <state width="1898" height="641" key="GridCell.Tab.0.bottom" timestamp="1593127361326">
+    <state width="1898" height="638" key="GridCell.Tab.0.bottom" timestamp="1593139401346">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="641" key="GridCell.Tab.0.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127361326" />
-    <state width="1898" height="641" key="GridCell.Tab.0.center" timestamp="1593127361326">
+    <state width="1898" height="638" key="GridCell.Tab.0.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593139401346" />
+    <state width="1898" height="638" key="GridCell.Tab.0.center" timestamp="1593139401346">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="641" key="GridCell.Tab.0.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127361326" />
-    <state width="1898" height="641" key="GridCell.Tab.0.left" timestamp="1593127361326">
+    <state width="1898" height="638" key="GridCell.Tab.0.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593139401346" />
+    <state width="1898" height="638" key="GridCell.Tab.0.left" timestamp="1593139401346">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="641" key="GridCell.Tab.0.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127361326" />
-    <state width="1898" height="641" key="GridCell.Tab.0.right" timestamp="1593127361326">
+    <state width="1898" height="638" key="GridCell.Tab.0.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593139401346" />
+    <state width="1898" height="638" key="GridCell.Tab.0.right" timestamp="1593139401346">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="641" key="GridCell.Tab.0.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127361326" />
-    <state width="1898" height="811" key="GridCell.Tab.1.bottom" timestamp="1593126631644">
+    <state width="1898" height="638" key="GridCell.Tab.0.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593139401346" />
+    <state width="1898" height="808" key="GridCell.Tab.1.bottom" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.1.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.1.center" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.1.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.1.center" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.1.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.1.left" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.1.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.1.left" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.1.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.1.right" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.1.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.1.right" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.1.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.2.bottom" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.1.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.2.bottom" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.2.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.2.center" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.2.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.2.center" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.2.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.2.left" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.2.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.2.left" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.2.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.2.right" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.2.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.2.right" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.2.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.3.bottom" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.2.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.3.bottom" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.3.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.3.center" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.3.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state width="1898" height="808" key="GridCell.Tab.3.center" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.3.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.3.left" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.3.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.3.left" timestamp="1593137743821">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.3.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.3.right" timestamp="1593126631644">
+    <state width="1898" height="808" key="GridCell.Tab.3.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743821" />
+    <state width="1898" height="808" key="GridCell.Tab.3.right" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.3.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631644" />
-    <state width="1898" height="811" key="GridCell.Tab.4.bottom" timestamp="1593126631645">
+    <state width="1898" height="808" key="GridCell.Tab.3.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state width="1898" height="808" key="GridCell.Tab.4.bottom" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.4.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631645" />
-    <state width="1898" height="811" key="GridCell.Tab.4.center" timestamp="1593126631645">
+    <state width="1898" height="808" key="GridCell.Tab.4.bottom/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state width="1898" height="808" key="GridCell.Tab.4.center" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.4.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631645" />
-    <state width="1898" height="811" key="GridCell.Tab.4.left" timestamp="1593126631645">
+    <state width="1898" height="808" key="GridCell.Tab.4.center/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state width="1898" height="808" key="GridCell.Tab.4.left" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.4.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631645" />
-    <state width="1898" height="811" key="GridCell.Tab.4.right" timestamp="1593126631645">
+    <state width="1898" height="808" key="GridCell.Tab.4.left/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state width="1898" height="808" key="GridCell.Tab.4.right" timestamp="1593137743822">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
-    <state width="1898" height="811" key="GridCell.Tab.4.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593126631645" />
+    <state width="1898" height="808" key="GridCell.Tab.4.right/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137743822" />
+    <state x="1421" y="391" width="998" height="1059" key="SettingsEditor" timestamp="1593139597529">
+      <screen x="0" y="30" width="3840" height="2130" />
+    </state>
+    <state x="1421" y="391" width="998" height="1059" key="SettingsEditor/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593139597529" />
+    <state x="92" y="122" width="3656" height="1946" key="VCS.FileHistoryDialog" timestamp="1593137381907">
+      <screen x="0" y="30" width="3840" height="2130" />
+    </state>
+    <state x="92" y="122" width="3656" height="1946" key="VCS.FileHistoryDialog/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593137381907" />
     <state x="1604" y="830" key="VcsDiffUtil.ChangesDialog" timestamp="1593127276263">
       <screen x="0" y="30" width="3840" height="2130" />
     </state>
     <state x="1604" y="830" key="VcsDiffUtil.ChangesDialog/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593127276263" />
+    <state x="1583" y="527" width="672" height="678" key="search.everywhere.popup" timestamp="1593135419427">
+      <screen x="0" y="30" width="3840" height="2130" />
+    </state>
+    <state x="1583" y="527" width="672" height="678" key="search.everywhere.popup/3840.30.1440.2530/0.30.3840.2130@0.30.3840.2130" timestamp="1593135419427" />
   </component>
 </project>

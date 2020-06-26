@@ -1,70 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using ShellLink;
-using ShellLink.Flags;
 
 namespace StartTileColorChanger.Models {
-    class LnkFileModel : INotifyPropertyChanged {
-        private string m_exePath;
-        private string m_lnkPath;
-        private string m_name;
-
-        public LnkFileModel() {
-
-        }
+    internal class LnkFileModel : INotifyPropertyChanged {
+        private string _mExePath;
+        private string _mLnkPath;
+        private string _mName;
 
         public string LnkPath {
-            get {
-                return m_lnkPath;
-            }
+            get => _mLnkPath;
             set {
-                m_lnkPath = value;
-                loadExePath(value);
+                _mLnkPath = value;
+                LoadExePath(value);
             }
         }
 
         public string ExePath {
-            get {
-                return m_exePath;
-            }
+            get => _mExePath;
             set {
-                m_exePath = value;
+                _mExePath = value;
                 System.Diagnostics.Debug.WriteLine($"Exepath set to {value}");
                 NotifyPropertyChanged("ExePath");
             }
         }
 
         public string Name {
-            get {
-                return m_name;
-            }
+            get => _mName;
             set {
-                m_name = value;
+                _mName = value;
                 System.Diagnostics.Debug.WriteLine($"Name set to {value}");
                 NotifyPropertyChanged("Name");
             }
         }
 
-        private async void loadExePath(string path) {
+        private async void LoadExePath(string path) {
             await Task.Run(() => {
-                string FullPath = Environment.ExpandEnvironmentVariables(path);
-                System.Diagnostics.Debug.WriteLine($"Full path is {FullPath}");
+                string fullPath = Environment.ExpandEnvironmentVariables(path);
+                System.Diagnostics.Debug.WriteLine($"Full path is {fullPath}");
                 try {
-                    Shortcut lnk = Shortcut.ReadFromFile(FullPath);
+                    Shortcut lnk = Shortcut.ReadFromFile(fullPath);
                     ExePath = lnk.LinkTargetIDList?.Path;
                 } catch (FileNotFoundException) { }
             });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string Obj) {
-            if (PropertyChanged != null) {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(Obj));
-            }
+
+        private void NotifyPropertyChanged(string obj) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(obj));
         }
     }
 }

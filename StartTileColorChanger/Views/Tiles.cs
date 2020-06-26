@@ -1,42 +1,37 @@
 ﻿using StartTileColorChanger.Actions;
 using StartTileColorChanger.Models;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace StartTileColorChanger.Views {
-    class Tiles {
-        private BindingList<StartTileGroupModel> m_Groups;
+    internal class Tiles {
+        private BindingList<StartTileGroupModel> _mGroups;
+
         public BindingList<StartTileGroupModel> Groups {
-            get { return m_Groups; }
-            set { m_Groups = value; }
+            get => _mGroups;
+            set => _mGroups = value;
         }
 
         public Tiles() {
-            Initialize();
             Groups = new BindingList<StartTileGroupModel>();
+            Initialize();
         }
 
-        public async void Initialize() {
+        public async Task Initialize() {
             System.Diagnostics.Debug.WriteLine("Loading layout");
-            ExportLayout layout = new ExportLayout();
-            System.Diagnostics.Debug.WriteLine("Layout exporter created");
-            string path = await layout.Export();
+            string path = await ExportLayout.Export();
             System.Diagnostics.Debug.WriteLine($"Path is {path}");
-            List<StartTileGroupModel> Groups = await layout.ParseExportedLayout(path);
+            BindingList<StartTileGroupModel> groups = await ExportLayout.ParseExportedLayout(path);
 
             System.Diagnostics.Debug.WriteLine("Done loading tiles");
 
-            this.Groups.Clear();
+            Groups.Clear();
             System.Diagnostics.Debug.WriteLine("Done clearing tiles");
-            foreach (StartTileGroupModel Group in Groups) {
-                System.Diagnostics.Debug.WriteLine($"Adding group {Group.Name}");
-                this.Groups.Add(Group);
+            foreach (StartTileGroupModel group in groups) {
+                System.Diagnostics.Debug.WriteLine($"Adding group {group.Name}");
+                Groups.Add(group);
             }
         }
     }
-
 }
