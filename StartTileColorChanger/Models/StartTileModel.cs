@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +34,8 @@ namespace StartTileColorChanger.Models {
         private Image m_Icon;
         private bool m_Editable = false;
 
-        private Color defaultColor = Color.FromArgb(0,0,0,0);
+        private Color defaultColor = Color.FromArgb(0, 0, 0, 0);
+        private const double DisabledTileContrast = 0.6;
 
         public string Name {
             get {
@@ -65,7 +64,7 @@ namespace StartTileColorChanger.Models {
             set {
                 m_ExePath = value;
                 Editable = GetIsEditable(value);
-                Task.Run(async () => Color = await GetColor(value));
+                Task.Run(async () => BackgroundColor = await GetColor(value));
                 NotifyPropertyChanged("ExePath");
             }
         }
@@ -80,7 +79,7 @@ namespace StartTileColorChanger.Models {
             }
         }
 
-        public Color Color {
+        public Color BackgroundColor {
             get {
                 return m_Color;
             }
@@ -89,6 +88,17 @@ namespace StartTileColorChanger.Models {
                 NotifyPropertyChanged("Color");
             }
         }
+        public Brush ForegroundColor {
+            get {
+                Color FgColor;
+                if (Editable)
+                    FgColor = Color.FromArgb(255, 255, 255, 255);
+                else
+                    FgColor = Color.FromArgb(255, 192, 192, 192);
+                return new SolidColorBrush(FgColor);
+            }
+        }
+
         public bool Editable {
             get {
                 return m_Editable;
@@ -96,6 +106,11 @@ namespace StartTileColorChanger.Models {
             set {
                 m_Editable = value;
                 NotifyPropertyChanged("Editable");
+            }
+        }
+        public string EditableStr {
+            get {
+                return m_Editable ? "Editable" : "Not editable";
             }
         }
 
@@ -124,16 +139,20 @@ namespace StartTileColorChanger.Models {
                 return Width + "x" + Height;
             }
             set {
-                Regex regex = new Regex(@"(\d+)x(\d+)");
-                Match match = regex.Match(value);
-                Width = Int32.Parse(match.Groups[1].Captures[0].Value);
-                Height = Int32.Parse(match.Groups[2].Captures[0].Value);
+                Regex SizeStringRegex = new Regex(@"(\d+)x(\d+)");
+                Match RegexMatches = SizeStringRegex.Match(value);
+                Width = Int32.Parse(RegexMatches.Groups[1].Captures[0].Value);
+                Height = Int32.Parse(RegexMatches.Groups[2].Captures[0].Value);
             }
         }
 
-        public SolidColorBrush BackgroundColor {
+        public SolidColorBrush BackgroundColorBrush {
             get {
-                return new SolidColorBrush(Color);
+                if (!Editable) {
+                    return new SolidColorBrush(AdjustContrast(BackgroundColor, DisabledTileContrast));
+                } else {
+                    return new SolidColorBrush(BackgroundColor);
+                }
             }
         }
         public int DisplayWidth {
@@ -166,6 +185,14 @@ namespace StartTileColorChanger.Models {
             return true;
         }
 
+        private Color AdjustContrast(Color Color, double Contrast) {
+            Color RetColor = Color.FromArgb(Color.A, Color.R, Color.G, Color.B);
+            RetColor.R = (byte)(Color.R * Contrast + 255 * Contrast / 2);
+            RetColor.G = (byte)(Color.G * Contrast + 255 * Contrast / 2);
+            RetColor.B = (byte)(Color.B * Contrast + 255 * Contrast / 2);
+            return RetColor;
+        }
+
         private async Task<Color> GetColor(string exePath) {
             string Folder = Path.GetDirectoryName(exePath);
             string ExeName = Path.GetFileNameWithoutExtension(exePath);
@@ -181,18 +208,18 @@ namespace StartTileColorChanger.Models {
                 string ColorString = query.First()?.Attribute("BackgroundColor")?.Value?.ToString();
                 if (ColorString != null || ColorString == "") {
                     //ColorConverter Converter = new ColorConverter();
-                    Color RetColor = (Color) ColorConverter.ConvertFromString(ColorString);
-                    return RetColor != Color.FromArgb(0,0,0,0) ? (Color)RetColor : getDefaultColor();
+                    Color RetColor = (Color)ColorConverter.ConvertFromString(ColorString);
+                    return RetColor != Color.FromArgb(0, 0, 0, 0) ? (Color)RetColor : getDefaultColor();
                 } else {
                     return getDefaultColor();
                 }
-            } catch (FileNotFoundException) {
+            } catch (FileNotFoundException e) {
                 return getDefaultColor();
             }
         }
 
         private Color getDefaultColor() {
-            if (defaultColor.Equals(Color.FromArgb(0,0,0,0))) {
+            if (defaultColor.Equals(Color.FromArgb(0, 0, 0, 0))) {
                 UISettings uiSettings = new UISettings();
                 Windows.UI.Color DefaultColorUI = uiSettings.GetColorValue(UIColorType.Accent);
                 defaultColor = Color.FromArgb(DefaultColorUI.A, DefaultColorUI.R, DefaultColorUI.G, DefaultColorUI.B);

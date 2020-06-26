@@ -3,73 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:locals="clr-namespace:StartTileColorChanger"
+        xmlns:models="clr-namespace:StartTileColorChanger.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <ListView ItemsSource="{Binding Path=Groups, UpdateSourceTrigger=PropertyChanged}">
+    <ListView ItemsSource="{Binding Path=Groups, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
+              d:DataContext="{d:DesignInstance }">
         <ListView.ItemTemplate>
-            <DataTemplate>
-                <ItemsControl ItemsSource="{Binding Path=Tiles, UpdateSourceTrigger=PropertyChanged}">
+            <DataTemplate DataType="{x:Type models:StartTileGroupModel}">
+                <ItemsControl ItemsSource="{Binding Path=Tiles, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
+                              d:DataContext="{d:DesignInstance }">
                     <ItemsControl.Resources>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Grid.Row" Value="{Binding Row}" />
-                            <Setter Property="Grid.Column" Value="{Binding Column}" />
-                            <Setter Property="Grid.RowSpan" Value="{Binding Width}" />
-                            <Setter Property="Grid.ColumnSpan" Value="{Binding Height}" />
-                            <Setter Property="Width" Value="{Binding DisplayWidth}" />
-                            <Setter Property="Height" Value="{Binding DisplayHeight}" />
-                        </Style>
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Background" Value="{Binding BackgroundColor}" />
-                        </Style>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Grid.Row" Value="{Binding Row}" />
+                                <Setter Property="Grid.Column" Value="{Binding Column}" />
+                                <Setter Property="Grid.RowSpan" Value="{Binding Width}" />
+                                <Setter Property="Grid.ColumnSpan" Value="{Binding Height}" />
+                            </Style>
                     </ItemsControl.Resources>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Grid ShowGridLines="True">
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
+                                    <RowDefinition Height="75" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
+                                    <ColumnDefinition Width="75" />
                                 </Grid.ColumnDefinitions>
                             </Grid>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <!--<DataTemplate.Resources>
-                                <Style TargetType="StackPanel" BasedOn="{StaticResource {x:Type StackPanel}}" />
-                            </DataTemplate.Resources>-->
-                            <StackPanel Orientation="Vertical" Background="{Binding Path=BackgroundColor}">
-                                <TextBlock Width="100" Text="{Binding Path=Name}" FontSize="18" />
-                                <!--<TextBlock Width="200" Text="{Binding Path=LnkPath}" />
+                        <DataTemplate DataType="models:StartTileModel">
+                            <Border BorderBrush="White" BorderThickness="2" CornerRadius="2" Background="{Binding Path=BackgroundColorBrush}" Padding="15">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow" FontSize="22" Foreground="{Binding Path=ForegroundColor}" />
+                                    <!--<TextBlock Width="200" Text="{Binding Path=LnkPath}" />
                         <TextBlock Width="200" Text="{Binding Path=ExePath}" />
                         <TextBlock Width="50" Text="{Binding Path=Width}" />
                         <TextBlock Width="50" Text="{Binding Path=Height}" />
                         <TextBlock Width="50" Text="{Binding Path=Row}" />
                         <TextBlock Width="50" Text="{Binding Path=Column}" />-->
-                                <TextBlock Width="100" Text="{Binding Path=Color}" />
-                                <TextBlock Width="50" Text="{Binding Path=Editable}" />
-                            </StackPanel>
+                                    <TextBlock Text="{Binding Path=BackgroundColor}" FontSize="14" Foreground="White" />
+                                    <TextBlock Text="{Binding Path=EditableStr}" FontSize="14" Foreground="White" />
+                                </StackPanel>
+                            </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

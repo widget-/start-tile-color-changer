@@ -10,4 +10,8 @@
 		<PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
 		<PackageReference Include="securifybv.ShellLink" Version="0.1.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Components" />
+	</ItemGroup>
 </Project>
